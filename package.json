@@ -1,0 +1,12 @@
+{
+    "name": "edp-web",
+    "description": "Package for edp web",
+    "version": "0.6.0",
+    "contributors": [
+        { "name": "errorrik", "email": "errorrik@gmail.com" }
+    ],
+    "dependencies": {
+    },
+    "main": "index.js",
+    "repository": "git://github.com/ecomfe/edp-web"
+}
