@@ -137,7 +137,7 @@ define(function (require) {
             var cmd = getCmdContent();
 
             var launchConsole = document.getElementById('launch-console');
-            launchConsole.innerHTML = '<code>$ ' + cmd + '\n</code>';
+            launchConsole.innerHTML = '<code>$ ' + cmd + '\n\n</code>';
             launchConsole.style.display = '';
             document.getElementById('help').style.display = 'none';
             document.getElementById('help-title').style.display = 'none';

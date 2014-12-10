@@ -268,7 +268,7 @@ input[type=text] {
 }
 
 #launch-console {
-    height: 300px;
+    height: 450px;
     overflow-y: auto;
     overflow-x: hidden;
     background: #333;
