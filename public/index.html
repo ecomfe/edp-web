@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="src/css/font-awesome.css">
+        <link rel="stylesheet" href="src/css/index.css">
+        <link rel="stylesheet" href="src/css/help.css">
+        <script src="/cwd"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="dep/esl/esl.js"></script>
+        <script src="dep/jquery/jquery-2.1.1.js"></script>
+        <script src="dep/markdown/markdown.js"></script>
+    </head>
+    <body>
+        <aside>
+            <header>
+                <i class="fa fa-reorder cmd-menu"></i>EDP WEB
+            </header>
+            <nav id="commands"></nav>
+        </aside>
+        <main style="display:none" id="cmd-main">
+            <h3 id="cmd-title"></h3>
+            <div id="cwd-panel">
+                <h3><i class="fa fa-thumb-tack"></i>当前目录</h3>
+                <span id="cwd"></span>
+                <span id="cwd-edit"><i class="fa fa-pencil-square"></i></span>
+                <ol id="cwd-dir-list" style="display:none"></ol>
+            </div>
+            <form>
+                <fieldset class="args"><legend>Argument:</legend>
+                    <input type="text" id="cmd-args">
+                </fieldset>
+                <fieldset id="cmd-options"><legend>Options:</legend>
+                </fieldset>
+                <button id="launch" type="button"><i class="fa fa-play"></i></button>
+                <span id="toggle-console"><i class="fa fa-windows"></i> console</span>
+            </form>
+            <pre id="launch-console" style="display:none"></pre>
+            <h3 id="help-title">帮助信息</h3>
+            <article id="help" class="cmd-help"></article>
+        </main>
+
+        <script>
+        require.config({
+            baseUrl: './src'
+        });
+
+        require(['main'], function (main) {
+            main.start();
+        });
+        </script>
+    </body>
+</html>
