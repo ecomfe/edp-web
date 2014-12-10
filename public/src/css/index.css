@@ -105,7 +105,6 @@ aside li {
     color: #e2fcfc;
     border-radius: 5px;
     cursor: pointer;
-
     list-style: none;
 }
 
@@ -116,6 +115,15 @@ aside li:hover {
 
 aside .cmd-level-2 {
     margin-left: 48px;
+}
+
+#commands h3 {
+    margin: 18px;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 5px;
+    background: #062a2a;
+    line-height: 24px;
 }
 
 form {

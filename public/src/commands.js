@@ -12,25 +12,49 @@ define(function (require) {
         }
 
         var readState = [];
-        var html = ['<ul>'];
+        var readStateLevel = 0;
+
         function genCmdHtml(cmds) {
+            var html = [];
             for (var i = 0, l = cmds.length; i < l; i++) {
                 var cmd = cmds[i];
                 var cmdName = cmd.name;
                 readState.push(cmdName);
+                readStateLevel++;
 
                 var cmdPath = readState.join(' ');
                 commandCache[cmdPath] = cmd;
-                html.push('<li data-index="' + cmdPath + '" class="cmd-level-' + readState.length + '">' + cmdName + '</li>');
-                genCmdHtml(cmd.children || []);
+                html.push(
+                    '<li data-index="' + cmdPath + '" class="cmd-level-' + readStateLevel + '">' + cmdName + '</li>',
+                    genCmdHtml(cmd.children || [])
+                );
+
                 readState.pop();
+                readStateLevel--;
             }
+
+            return html.join('');
         }
-        genCmdHtml(builtinCommands);
-        html.join('</ul>');
+
+        var listHtml = [];
+        if (builtinCommands && builtinCommands.length) {
+            listHtml.push(
+                '<h3>内置命令</h3><ul>',
+                genCmdHtml(builtinCommands),
+                '</ul>'
+            );
+        }
+
+        if (userCommands && userCommands.length) {
+            listHtml.push(
+                '<h3>用户扩展命令</h3><ul>',
+                genCmdHtml(userCommands),
+                '</ul>'
+            );
+        }
 
         $('#commands')
-            .html(html.join(''))
+            .html(listHtml.join(''))
             .click(function (e) {
                 if (e.target.tagName === 'LI') {
                     var cmdPath = e.target.getAttribute('data-index');
