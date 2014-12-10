@@ -6,6 +6,10 @@
         { "name": "errorrik", "email": "errorrik@gmail.com" }
     ],
     "dependencies": {
+        "edp-core": "~1.0.28",
+        "express": "4.x",
+        "body-parser": "1.10.x",
+        "socket.io": "1.2.x"
     },
     "main": "index.js",
     "repository": "git://github.com/ecomfe/edp-web"
