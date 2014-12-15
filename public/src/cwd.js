@@ -11,16 +11,10 @@ define(function (require) {
 
     function initEditBehavior() {
         $('#cwd-dir-list').delegate('li', 'click', function () {
-            var dir = this.getAttribute('data-dir');
-            var pathSegs = currentCwd.split('/');
-            if (dir === '..') {
-                pathSegs.pop();
-            }
-            else {
-                pathSegs.push(dir);
-            }
-
-            dir = pathSegs.join('/');
+            var dir = require('./path').resolve(
+                currentCwd,
+                this.getAttribute('data-dir')
+            );
             setCwd(dir);
             $('#cwd-dir-list').hide();
             lsCwd();
