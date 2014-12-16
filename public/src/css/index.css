@@ -69,13 +69,14 @@ h1, h2, h3, ol, ul, li, dl, dt, dd, p, form {
     margin-right: 3px;
 }
 
-header {
+aside header {
     height: 50px;
     background: #0d3c3c;
     color: #fff;
     line-height: 50px;
     font-size: 28px;
     margin-bottom: 10px;
+    padding: 10px 0 0 20px;
 }
 
 .cmd-menu {
@@ -117,7 +118,7 @@ aside .cmd-level-2 {
     margin-left: 48px;
 }
 
-#commands h3 {
+aside h3 {
     margin: 18px;
     padding: 5px 10px;
     color: #fff;
@@ -178,6 +179,8 @@ fieldset label b {
     font-family: 'courier new';
     font-weight: normal;
 }
+
+
 
 input[type=text] {
     line-height: 30px;

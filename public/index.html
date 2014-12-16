@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="src/css/font-awesome.css">
         <link rel="stylesheet" href="src/css/index.css">
         <link rel="stylesheet" href="src/css/help.css">
-        <script src="/cwd"></script>
+        <script src="/cwd.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="dep/esl/esl.js"></script>
         <script src="dep/jquery/jquery-2.1.1.js"></script>
@@ -14,11 +14,13 @@
     <body>
         <aside>
             <header>
-                <i class="fa fa-reorder cmd-menu"></i>EDP WEB
+                <i class="fa fa-desktop cmd-menu"></i>EDP WEB
             </header>
+            <nav id="only4web"></nav>
             <nav id="commands"></nav>
         </aside>
         <main style="display:none" id="cmd-main">
+            <div id="only4web-page"></div>
             <h3 id="cmd-title"></h3>
             <div id="cwd-panel">
                 <h3><i class="fa fa-thumb-tack"></i>当前目录</h3>
@@ -39,12 +41,9 @@
             <h3 id="help-title">帮助信息</h3>
             <article id="help" class="cmd-help"></article>
         </main>
-
+        <script src="/nav.js"></script>
+        <script src="/require.config.js"></script>
         <script>
-        require.config({
-            baseUrl: './src'
-        });
-
         require(['main'], function (main) {
             main.start();
         });
