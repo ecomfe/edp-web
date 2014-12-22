@@ -1,30 +1,94 @@
 body {
+    background: #f5f5f5;
     margin: 0;
     font-size: 14px;
     line-height: 1.5;
+    color: #555;
     font-family: "Avenir Next", Helvetica, Arial, "Lantinghei SC", "Microsoft YaHei", sans-serif;
 }
 
-h1, h2, h3, ol, ul, li, dl, dt, dd, p, form {
+h1, h2, h3, ol, ul, li, dl, dt, dd, p, form, pre {
     padding: 0;
     margin: 0;
     font-weight: normal;
 }
 
+.header {
+    background: #2f89ea;
+    height: 50px;
+    min-width: 780px;
+    color: #fff;
+}
+
+#aside-nav {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 200px;
+    min-height: calc(100vh - 50px);
+    background: #e1e1e1;
+    color: #666;
+    padding-bottom: 10px;
+}
+
+
+header h1 {
+    line-height: 50px;
+    font-size: 28px;
+    width: 200px;
+    float: left;
+}
+
+.cmd-menu {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 22px;
+}
+
+#aside-nav li {
+    padding: 5px 5px 5px 15px;
+    cursor: pointer;
+    list-style: none;
+}
+
+#aside-nav li:hover {
+    background: #999;
+    color: #fff;
+}
+
+#aside-nav li[data-current='1'] {
+    background: #f5f5f5;
+    color: #555;
+    border-left: 4px solid #2f89ea;
+}
+
+#aside-nav .cmd-level-2 {
+    margin-left: 20px;
+}
+
+#aside-nav h3 {
+    padding: 5px 10px;
+    margin-top: 15px;
+    line-height: 24px;
+    font-size: 18px;
+    color: #333;
+}
+
 #cwd-panel {
     line-height: 30px;
     height: 30px;
-    margin: 0 20px;
+    margin: 10px 20px 0;
+    float: left;
 }
 
 #cwd-panel h3 {
     float: left;
-    background: #6575a9;
+    background: #2455a4;
     color: #fff;
     width: 100px;
     text-align: center;
     font-size: 14px;
-    border-radius: 3px 0 0 3px;
 }
 #cwd-panel h3 i {
     margin-right: 5px;
@@ -33,14 +97,13 @@ h1, h2, h3, ol, ul, li, dl, dt, dd, p, form {
 #cwd, #cwd-edit {
     padding: 0 10px;
     float: left;
-    background: #dadde7;
+    background: #fff;
     color: #555;
 }
 
 #cwd-edit {
-    color: #6575a9;
+    color: #2455a4;
     cursor: pointer;
-    border-radius: 0 3px 3px 0;
 }
 
 #cwd-edit:hover {
@@ -50,7 +113,7 @@ h1, h2, h3, ol, ul, li, dl, dt, dd, p, form {
 #cwd-dir-list {
     position: absolute;
     z-index: 10;
-    background: #8f9cc6;
+    background: #1B4589;
 }
 
 #cwd-dir-list li {
@@ -62,82 +125,30 @@ h1, h2, h3, ol, ul, li, dl, dt, dd, p, form {
 
 #cwd-dir-list li:hover {
     list-style: none;
-    background: #7080b5;
+    background: #0C2D62;
 }
 
 #cwd-dir-list li i {
     margin-right: 3px;
 }
 
-aside header {
-    height: 50px;
-    background: #0d3c3c;
-    color: #fff;
-    line-height: 50px;
-    font-size: 28px;
-    margin-bottom: 10px;
-    padding: 10px 0 0 20px;
-}
-
-.cmd-menu {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    font-size: 22px;
-}
-
-aside {
-    background: #0d3c3c;
-    width: 240px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-}
-
-aside ul {
-    background: #0d3c3c;
-    padding: 0 0 5px;
-}
-
-aside li {
-    margin: 0 24px 5px;
-    padding: 5px;
-    color: #e2fcfc;
-    border-radius: 5px;
-    cursor: pointer;
-    list-style: none;
-}
-
-aside li:hover {
-    background: #e2fcfc;
-    color: #5A6969;
-}
-
-aside .cmd-level-2 {
-    margin-left: 48px;
-}
-
-aside h3 {
-    margin: 18px;
-    padding: 5px 10px;
-    color: #fff;
-    border-radius: 5px;
-    background: #062a2a;
-    line-height: 24px;
-}
-
-form {
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-#cmd-title, #help-title {
+#cmd-title {
     padding: 8px 10px;
-    background: #949494;
-    color: #FFFFFF;
-    border-radius: 5px;
-    margin-bottom: 30px;
+    color: #fff;
+    background: #676767;
+    margin-bottom: 10px;
+}
+
+#cmd-panel {
+    padding: 5px 0 15px;
+    margin: 10px;
+    background: #fff;
+}
+
+#title {
+    font-size: 20px;
+    padding: 10px;
+    color: #5072A8;
 }
 
 #cmd-desc {
@@ -146,27 +157,18 @@ form {
 }
 
 fieldset {
-    margin-bottom: 10px;
+    margin: 15px;
     padding: 10px;
     border: 0;
-    border-radius: 2px;
-    background: #e6e6e6;
+    background: #efefef;
 }
 
 fieldset legend {
-    border-radius: 3px;
     padding: 3px;
-    background: #666;
+    background: #888;
     color: #fff;
 }
 
-.args legend {
-    background: #a7a965;
-}
-
-#cmd-options legend {
-    background: #a96565;
-}
 
 fieldset label {
     display: block;
@@ -180,15 +182,12 @@ fieldset label b {
     font-weight: normal;
 }
 
-
-
 input[type=text] {
     line-height: 30px;
     font-family: 'courier new';
     font-size: 16px;
     padding: 0 10px;
     border: 0;
-    border-radius: 8px;
 }
 
 @-webkit-keyframes round {
@@ -216,27 +215,26 @@ input[type=text] {
     }
 }
 
-#launch {
-    border-radius: 5px;
-    background: #65a9a9;
+#cmd-launch {
+    background: #2f89ea;
     border: 0;
     padding: 5px 20px;
-    margin-left: 10px;
+    margin-left: 15px;
     font-size: 18px;
     color: #fff;
     cursor: pointer;
 }
 
-#launch:disabled i {
+#cmd-launch:disabled i {
     -webkit-animation: round 2.0s infinite linear;
     animation: round 2.0s infinite linear;
 }
 
-#launch:hover {
-    background: #478282;
+#cmd-launch:hover {
+    background: #2455a4;
 }
 
-#launch:disabled {
+#cmd-launch:disabled {
     background: #a9a9a9;
     color: #666;
 }
@@ -260,31 +258,67 @@ input[type=text] {
     width: 360px;
 }
 
+#console-panel {
+    margin: 10px;
+    border: 1px solid #52b036;
+}
+
 #toggle-console {
-    margin-left: 10px;
+    padding: 8px 10px;
     cursor: pointer;
-    color: #A96587;
+    color: #fff;
+    background: #52b036;
 }
 
 #toggle-console:hover {
-    color: #782850;
+    color: #f2d256;
 }
 
-#launch-console {
+#console-tty {
     height: 450px;
     overflow-y: auto;
     overflow-x: hidden;
     background: #333;
     color: #eee;
     font-size: 12px;
-    margin: 20px 10px;
     padding: 10px;
-    border-radius: 3px;
 }
 
-main {
-    margin-left:240px;
+#main {
+    min-width: 580px;
+    margin-left: 200px;
     padding: 15px 10px;
+    position: relative;
 }
+
+#main::before {
+  content: "";
+  position: absolute;
+  left: -200px;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  background-color: #e1e1e1;
+  z-index: -1;
+}
+
+#help {
+    margin: 10px;
+    border: 1px solid #999;
+}
+
+#help-title {
+    padding: 8px 10px;
+    background: #999;
+    color: #fff;
+}
+
+#help-title .fa,
+#cmd-title .fa,
+#toggle-console .fa {
+    margin-right: 8px;
+}
+
+
 
 

@@ -12,34 +12,41 @@
         <script src="dep/markdown/markdown.js"></script>
     </head>
     <body>
-        <aside>
-            <header>
-                <i class="fa fa-desktop cmd-menu"></i>EDP WEB
-            </header>
-            <nav id="only4web"></nav>
-            <nav id="commands"></nav>
-        </aside>
-        <main style="display:none" id="cmd-main">
-            <div id="only4web-page"></div>
-            <h3 id="cmd-title"></h3>
+        <header class="header">
+            <h1><i class="fa fa-desktop cmd-menu"></i>EDP WEB</h1>
+
             <div id="cwd-panel">
                 <h3><i class="fa fa-thumb-tack"></i>当前目录</h3>
                 <span id="cwd"></span>
                 <span id="cwd-edit"><i class="fa fa-pencil-square"></i></span>
                 <ol id="cwd-dir-list" style="display:none"></ol>
             </div>
-            <form>
-                <fieldset class="args"><legend>Argument:</legend>
+        </header>
+        <aside id="aside-nav">
+            <nav id="nav-4web"></nav>
+            <nav id="nav-cmd"></nav>
+        </aside>
+        <main id="main" style="display:none">
+            <h3 id="title" style="display:none"></h3>
+            <div id="board" style="display:none"></div>
+            <form id="cmd-panel">
+                <fieldset class="args"><legend>Argument</legend>
                     <input type="text" id="cmd-args">
                 </fieldset>
-                <fieldset id="cmd-options"><legend>Options:</legend>
+                <fieldset id="cmd-options"><legend>Options</legend>
                 </fieldset>
-                <button id="launch" type="button"><i class="fa fa-play"></i></button>
-                <span id="toggle-console"><i class="fa fa-windows"></i> console</span>
+                <button id="cmd-launch" type="button"><i class="fa fa-play"></i></button>
             </form>
-            <pre id="launch-console" style="display:none"></pre>
-            <h3 id="help-title">帮助信息</h3>
-            <article id="help" class="cmd-help"></article>
+
+            <div id="console-panel">
+                <header id="toggle-console"><i class="fa fa-windows"></i>Console</header>
+                <pre id="console-tty"></pre>
+            </div>
+
+            <article id="help">
+                <header id="help-title"><i class="fa fa-question-circle"></i>Command Help</header>
+                <main id="help-main"></main>
+            </article>
         </main>
         <script src="/nav.js"></script>
         <script src="/require.config.js"></script>
