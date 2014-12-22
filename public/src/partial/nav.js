@@ -1,15 +1,27 @@
 define(function (require) {
-
     var builtinCommands;
     var userCommands;
     var only4web;
 
-    var commandCache = {};
+    var inited;
+    function initView() {
+        if (inited) {
+            return;
+        }
+        inited = 1;
 
+        initOnly4Web();
+        initCommands();
+    }
+
+    var handlers = {
+        on4web: function () {},
+        oncmd: function () {}
+    };
 
     var currentPageModule;
     var only4webInfos = {};
-    function initOnly4WebNav() {
+    function initOnly4Web() {
         var html = ['<h3>专属功能</h3>', '<ul>'];
         for (var i = 0, l = only4web.length; i < l; i++) {
             var info = only4web[i];
@@ -18,58 +30,23 @@ define(function (require) {
         }
         html.push('</ul>');
 
-        var wrap = document.getElementById('only4web');
+        var wrap = document.getElementById('nav-4web');
         wrap.innerHTML = html.join('');
         wrap.onclick = function (e) {
             e = e || window.event;
             var target = e.target || e.srcElement;
 
             if (target.tagName == 'LI') {
-                if (currentPageModule) {
-                    currentPageModule.unload && currentPageModule.unload();
-                    var links = document.getElementsByTagName('link');
-                    var len = links.length;
-                    while (len--) {
-                        var link = links[len];
-                        if (link.getAttribute('data-dynamic')) {
-                            link.parentNode.removeChild(link);
-                        }
-                    }
-                }
-
                 var info = only4webInfos[target.getAttribute('data-func-path')];
-                document.getElementById('only4web-page').innerHTML = info.html;
-
-                var jsModule = info.jsModule;
-                if (jsModule) {
-                    require([info.path + '/' + jsModule], function (mod) {
-                        currentPageModule = mod;
-                        mod.load && mod.load();
-                    });
-                }
-
-                var cssFile = info.cssFile;
-                if (cssFile) {
-                    var link = document.createElement('link');
-                    link.setAttribute('rel', 'stylesheet');
-                    link.setAttribute('href', '/_static/' + info.path + '/' +cssFile);
-                    link.setAttribute('data-dynamic', '1');
-                    var parent = document.getElementsByTagName('head')[0]
-                        || document.body;
-                    parent.appendChild(link);
-                }
+                setCurrent(target);
+                handlers.on4web(info);
             }
-        }
+        };
+        wrap = null;
     }
 
-    var viewInited;
-    function initView() {
-        if (viewInited) {
-            return;
-        }
-
-        initOnly4WebNav();
-
+    var commandCache = {};
+    function initCommands() {
         var readState = [];
         var readStateLevel = 0;
 
@@ -82,6 +59,7 @@ define(function (require) {
                 readStateLevel++;
 
                 var cmdPath = readState.join(' ');
+                cmd.path = cmdPath;
                 commandCache[cmdPath] = cmd;
                 html.push(
                     '<li data-index="' + cmdPath + '" class="cmd-level-' + readStateLevel + '">' + cmdName + '</li>',
@@ -112,30 +90,44 @@ define(function (require) {
             );
         }
 
-        $('#commands')
-            .html(listHtml.join(''))
-            .click(function (e) {
-                if (e.target.tagName === 'LI') {
-                    var cmdPath = e.target.getAttribute('data-index');
-                    selectCmd(cmdPath);
-                }
-            });
+        var wrap = document.getElementById('nav-cmd');
+        wrap.innerHTML = listHtml.join('');
+        wrap.onclick = function (e) {
+            e = e || window.event;
+            var target = e.target || e.srcElement;
 
-        $('#toggle-console').click(function () {
-            $('#launch-console').toggle();
-        });
-        viewInited = 1;
+            if (target.tagName == 'LI') {
+                var cmdPath = e.target.getAttribute('data-index');
+                setCurrent(target);
+                handlers.oncmd(commandCache[cmdPath]);
+            }
+        };
+
+        wrap = null;
     }
 
+    function setCurrent(liEl) {
+        var lis = document.getElementById('aside-nav').getElementsByTagName('li');
+        var len = lis.length;
+        while (len--) {
+            var li = lis[len];
+            li.setAttribute('data-current', li === liEl ? 1 : 0);
+        }
+    }
 
     return {
-        set: function (data) {
+        init: function (data) {
             data = data || {};
             builtinCommands = data.builtin || [];
             userCommands = data.user || [];
             only4web = data.only4web || [];
 
             initView();
+        },
+
+        behavior: function (on4web, oncmd) {
+            on4web && (handlers.on4web = on4web);
+            oncmd && (handlers.oncmd = oncmd);
         }
     };
 });
