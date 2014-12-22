@@ -141,7 +141,7 @@ header h1 {
 
 #cmd-panel {
     padding: 5px 0 15px;
-    margin: 10px;
+    margin: 20px 10px;
     background: #fff;
 }
 
@@ -259,7 +259,7 @@ input[type=text] {
 }
 
 #console-panel {
-    margin: 10px;
+    margin: 20px 10px;
     border: 1px solid #52b036;
 }
 
@@ -303,7 +303,7 @@ input[type=text] {
 }
 
 #help {
-    margin: 10px;
+    margin: 20px 10px;
     border: 1px solid #999;
 }
 
