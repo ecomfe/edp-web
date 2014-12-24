@@ -12,6 +12,8 @@ define(function (require) {
                 }
             }
         }
+
+        currentFuncModule = null;
     }
 
     function loadWebFunc(info) {
