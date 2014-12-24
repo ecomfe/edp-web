@@ -190,31 +190,6 @@ input[type=text] {
     border: 0;
 }
 
-@-webkit-keyframes round {
-    0% {
-        transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-    } 50% {
-        transform: rotate(180deg);
-        -webkit-transform: rotate(180deg);
-    } 100% {
-        transform: rotate(360deg);
-        -webkit-transform: rotate(360deg);
-    }
-}
-@keyframes round {
-    0% {
-        transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-    } 50% {
-        transform: rotate(180deg);
-        -webkit-transform: rotate(180deg);
-    } 100% {
-        transform: rotate(360deg);
-        -webkit-transform: rotate(360deg);
-    }
-}
-
 #cmd-launch {
     background: #2f89ea;
     border: 0;
@@ -223,11 +198,6 @@ input[type=text] {
     font-size: 18px;
     color: #fff;
     cursor: pointer;
-}
-
-#cmd-launch:disabled i {
-    -webkit-animation: round 2.0s infinite linear;
-    animation: round 2.0s infinite linear;
 }
 
 #cmd-launch:hover {
@@ -300,6 +270,10 @@ input[type=text] {
   height: 100%;
   background-color: #e1e1e1;
   z-index: -1;
+}
+
+#main .btn-primary {
+    margin-left: 10px;
 }
 
 #help {
