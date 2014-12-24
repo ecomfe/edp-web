@@ -24,7 +24,7 @@ define(function (require) {
 
         document.getElementById(launchId).onclick = function () {
             this.disabled = true;
-            this.innerHTML = '<i class="fa fa-refresh"></i>';
+            this.innerHTML = '<i class="fa fa-refresh fa-spin"></i>';
 
             var cmd = getCmdContent();
 
