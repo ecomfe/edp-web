@@ -1,0 +1,49 @@
+.btn .fa {
+    margin-right: 6px;
+}
+
+.btn-primary {
+    background: #2f89ea;
+    border: 0;
+    padding: 5px 20px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #2455a4;
+}
+
+.btn-primary:disabled {
+    background: #a9a9a9;
+    color: #666;
+}
+
+.label {
+    background: #999;
+    color: #fff;
+}
+
+.label-warning,
+.label-warn {
+    background: #f0ad4e;
+    color: #fff;
+}
+
+.label-danger,
+.label-error {
+    background: #e63a3a;
+    color: #fff;
+}
+
+.label-success,
+.label-info {
+    background: #55af44;
+    color: #fff;
+}
+
+.label-primary {
+    background: #2f89ea;
+    color: #fff;
+}
