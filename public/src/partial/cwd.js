@@ -59,7 +59,7 @@ define(function (require) {
                     .html(html.join(''));
             },
             dataType: 'json'
-        })
+        });
     }
 
     return {
