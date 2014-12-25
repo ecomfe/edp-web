@@ -30,7 +30,7 @@ define(function (require) {
 
             cons.unfold();
             cons.clear();
-            cons.log('$ ' + cmd + '\n\n');
+            cons.log('$ ' + cmd + '\n');
 
             require('./help').fold();
             require('../launch')(
