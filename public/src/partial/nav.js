@@ -129,15 +129,15 @@ define(function (require) {
         if (parts.length === 2) {
             var type = parts[0];
             var path = parts[1];
-
+            var navLiId = path.replace(/\//g, '--');
             switch (type) {
                 case 'web':
                     handlers.on4web(only4webInfos[path]);
-                    setCurrent(document.getElementById('navweb--' + path));
+                    setCurrent(document.getElementById('navweb--' + navLiId));
                     break;
                 case 'cmd':
                     handlers.oncmd(commandCache[path]);
-                    setCurrent(document.getElementById('navcmd--' + path));
+                    setCurrent(document.getElementById('navcmd--' + navLiId));
                     break;
             }
         }
