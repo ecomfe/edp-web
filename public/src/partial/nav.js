@@ -25,8 +25,11 @@ define(function (require) {
         var html = ['<h3>专属功能</h3>', '<ul>'];
         for (var i = 0, l = only4web.length; i < l; i++) {
             var info = only4web[i];
-            only4webInfos[info.path] = info;
-            html.push('<li data-func-path="' + info.path + '">' + info.title + '</li>');
+            var path = info.path;
+            only4webInfos[path] = info;
+            var liId = path.replace(/\//g, '--');
+
+            html.push('<li data-func-path="' + path + '" id="navweb--' + liId + '">' + info.title + '</li>');
         }
         html.push('</ul>');
 
@@ -37,9 +40,7 @@ define(function (require) {
             var target = e.target || e.srcElement;
 
             if (target.tagName == 'LI') {
-                var info = only4webInfos[target.getAttribute('data-func-path')];
-                setCurrent(target);
-                handlers.on4web(info);
+                location.hash = '#web!' + target.getAttribute('data-func-path');
             }
         };
         wrap = null;
@@ -58,11 +59,12 @@ define(function (require) {
                 readState.push(cmdName);
                 readStateLevel++;
 
-                var cmdPath = readState.join(' ');
+                var cmdPath = readState.join('/');
+                var liId = readState.join('--');
                 cmd.path = cmdPath;
                 commandCache[cmdPath] = cmd;
                 html.push(
-                    '<li data-index="' + cmdPath + '" class="cmd-level-' + readStateLevel + '">' + cmdName + '</li>',
+                    '<li data-index="' + cmdPath + '" id="navcmd--'+ liId + '" class="cmd-level-' + readStateLevel + '">' + cmdName + '</li>',
                     genCmdHtml(cmd.children || [])
                 );
 
@@ -97,9 +99,7 @@ define(function (require) {
             var target = e.target || e.srcElement;
 
             if (target.tagName == 'LI') {
-                var cmdPath = e.target.getAttribute('data-index');
-                setCurrent(target);
-                handlers.oncmd(commandCache[cmdPath]);
+                location.hash = '#cmd!' + target.getAttribute('data-index');
             }
         };
 
@@ -115,6 +115,34 @@ define(function (require) {
         }
     }
 
+    var beforeHash = '';
+    function hashChange() {
+        var index = location.href.indexOf('#');
+        var hash = index === -1 ? '' : location.href.slice(index + 1);
+
+        if (hash === beforeHash) {
+            return;
+        }
+
+        beforeHash = hash;
+        var parts = hash.split('!');
+        if (parts.length === 2) {
+            var type = parts[0];
+            var path = parts[1];
+
+            switch (type) {
+                case 'web':
+                    handlers.on4web(only4webInfos[path]);
+                    setCurrent(document.getElementById('navweb--' + path));
+                    break;
+                case 'cmd':
+                    handlers.oncmd(commandCache[path]);
+                    setCurrent(document.getElementById('navcmd--' + path));
+                    break;
+            }
+        }
+    }
+
     return {
         init: function (data) {
             data = data || {};
@@ -123,6 +151,17 @@ define(function (require) {
             only4web = data.only4web || [];
 
             initView();
+
+            if (window.addEventListener) {
+                window.addEventListener('hashchange', hashChange, false);
+            }
+            else if ('onhashchange' in window && document.documentMode > 7) {
+                window.attachEvent('onhashchange', hashChange);
+            }
+            else {
+                setInterval(hashChange, 1000);
+            }
+            hashChange();
         },
 
         behavior: function (on4web, oncmd) {

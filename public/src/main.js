@@ -79,12 +79,11 @@ define(function (require) {
     return {
         start: function () {
             require('./launch').init();
+            require('./partial/cwd').init(DEFAULT_CWD);
 
             var nav = require('./partial/nav');
-            nav.init(NAV);
             nav.behavior(loadWebFunc, loadCmdFunc);
-
-            require('./partial/cwd').init(DEFAULT_CWD);
+            nav.init(NAV);
         }
     };
 });
