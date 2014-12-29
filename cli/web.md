@@ -4,6 +4,11 @@ web
 ### Usage
 
     edp web
+    edp web [--port=portNo]
+
+### Options
+
++ --port - 启动的端口号，默认为`8008`。
 
 ### Description
 
