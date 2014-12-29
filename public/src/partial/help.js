@@ -20,7 +20,7 @@ define(function (require) {
          * @param {string} content 帮助信息内容
          */
         setContentByMarkdown: function (content) {
-            this.setContent(markdown.toHTML(content || '没有详细的帮助信息'));
+            this.setContent(marked(content || '没有详细的帮助信息'));
         },
 
         /**
