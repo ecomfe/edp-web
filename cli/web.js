@@ -1,3 +1,7 @@
+/**
+ * @file edp web 启动入口
+ * @author errorrik[errorrik@gmail.com]
+ */
 
 /**
  * 命令行配置相
