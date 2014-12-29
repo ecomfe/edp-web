@@ -1,3 +1,7 @@
+/**
+ * @file 页面部件：控制台区域
+ * @author errorrik[errorrik@gmail.com]
+ */
 
 // node 的 child_process 运行时候把标准输出中的 ansi escape 都去掉了
 // 所以拿不到颜色信息。反正没颜色，用 pre + code 还会创建很多 dom 节点
@@ -7,10 +11,22 @@ define(function (require) {
     var panelId = 'console-panel';
     var ttyId = 'console-tty';
 
+    /**
+     * 获取控制台区域面板元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
     function getPanel() {
         return document.getElementById(panelId);
     }
 
+    /**
+     * 获取控制台输出元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
     function getTTY() {
         return document.getElementById(ttyId);
     }
@@ -20,25 +36,40 @@ define(function (require) {
     var texts = [];
 
     var exports = {
+        /**
+         * 显示控制台区域
+         */
         show: function () {
             getPanel().style.display = '';
             this.fold();
         },
 
+        /**
+         * 隐藏控制台区域
+         */
         hide: function () {
             getPanel().style.display = 'none';
         },
 
+        /**
+         * 折叠控制台区域
+         */
         fold: function () {
             getTTY().style.display = 'none';
             isFold = 1;
         },
 
+        /**
+         * 展开控制台区域
+         */
         unfold: function () {
             getTTY().style.display = '';
             isFold = 0;
         },
 
+        /**
+         * 展开/折叠 控制台区域
+         */
         toggleFold: function () {
             if (isFold) {
                 this.unfold();
@@ -48,11 +79,19 @@ define(function (require) {
             }
         },
 
+        /**
+         * 清除控制台输出
+         */
         clear: function () {
             getTTY().value = '';
             texts = [];
         },
 
+        /**
+         * 输出控制台信息
+         *
+         * @param {string} output 信息串
+         */
         log: function (output) {
             var lines = output.replace(/(^[\x0d\x0a]+|[\x0d\x0a]+$)/g, '').split('\n');
             texts.push.apply(texts, lines);
@@ -75,17 +114,24 @@ define(function (require) {
             getTTY().value = texts.join('\n');
         },
 
+        /**
+         * 控制台输出区域滚动到顶部
+         */
         scrollToTop: function () {
             var tty = getTTY();
             tty.scrollTop = 0;
         },
 
+        /**
+         * 控制台输出区域滚动到底部
+         */
         scrollToBottom: function () {
             var tty = getTTY();
             tty.scrollTop = tty.scrollHeight;
         }
     };
 
+    // 标题区域事件挂载，使点击时隐藏或展开
     document.getElementById('toggle-console').onclick = function () {
         exports.toggleFold();
     };

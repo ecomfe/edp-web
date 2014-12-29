@@ -1,5 +1,17 @@
+/**
+ * @file 页面部件：当前目录区域
+ * @author errorrik[errorrik@gmail.com]
+ */
+
 define(function (require) {
     var currentCwd;
+
+    /**
+     * 设置当前目录
+     *
+     * @inner
+     * @param {string} cwd 当前目录
+     */
     function setCwd(cwd) {
         currentCwd = cwd;
         $('#cwd').html(cwd);
@@ -9,6 +21,11 @@ define(function (require) {
         catch (ex) {}
     }
 
+    /**
+     * 初始化编辑当前目录行为的浏览器事件
+     *
+     * @inner
+     */
     function initEditBehavior() {
         $('#cwd-dir-list').delegate('li', 'click', function () {
             var dir = require('../path').resolve(
@@ -28,6 +45,11 @@ define(function (require) {
         });
     }
 
+    /**
+     * 浏览当前目录下的目录列表
+     *
+     * @inner
+     */
     function lsCwd() {
         $.ajax({
             method: 'POST',
@@ -63,10 +85,20 @@ define(function (require) {
     }
 
     return {
+        /**
+         * 获取当前目录
+         *
+         * @return {string}
+         */
         get: function () {
             return currentCwd;
         },
 
+        /**
+         * 初始化当前目录区域
+         *
+         * @param {string} defaultCwd 默认的当前目录
+         */
         init: function (defaultCwd) {
             try {
                 var cwd = localStorage.getItem('edp-cwd');

@@ -1,5 +1,24 @@
+/**
+ * @file 主启动模块
+ * @author errorrik[errorrik@gmail.com]
+ */
+
 define(function (require) {
+    /**
+     * 管理当前页面的模块对象，用于离开当前页面时，调用模块的unload，做清扫工作
+     * 仅有web专属功能时，该变量存在值
+     *
+     * @inner
+     * @type {Object}
+     */
     var currentFuncModule;
+
+    /**
+     * 卸载当前功能
+     * 在载入一个新功能时，需要卸载
+     *
+     * @inner
+     */
     function unloadFunc() {
         if (currentFuncModule) {
             currentFuncModule.unload && currentFuncModule.unload();
@@ -16,6 +35,12 @@ define(function (require) {
         currentFuncModule = null;
     }
 
+    /**
+     * 载入web专属功能
+     *
+     * @inner
+     * @param {Object} info web专属功能信息
+     */
     function loadWebFunc(info) {
         unloadFunc();
         document.getElementById('main').style.display = '';
@@ -52,6 +77,12 @@ define(function (require) {
         }
     }
 
+    /**
+     * 载入命令运行功能
+     *
+     * @inner
+     * @param {Object} info 当前命令信息
+     */
     function loadCmdFunc(info) {
         unloadFunc();
         document.getElementById('main').style.display = '';
@@ -77,6 +108,9 @@ define(function (require) {
     }
 
     return {
+        /**
+         * 启动edp web界面功能
+         */
         start: function () {
             require('./launch').init();
             require('./partial/cwd').init(DEFAULT_CWD);

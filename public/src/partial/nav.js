@@ -1,9 +1,20 @@
+/**
+ * @file 页面部件：导航区域
+ * @author errorrik[errorrik@gmail.com]
+ */
+
 define(function (require) {
     var builtinCommands;
     var userCommands;
     var only4web;
 
     var inited;
+
+    /**
+     * 初始化导航区域的视图
+     *
+     * @inner
+     */
     function initView() {
         if (inited) {
             return;
@@ -14,13 +25,29 @@ define(function (require) {
         initCommands();
     }
 
+    /**
+     * 导航区域点击的行为函数，空函数是为了容错
+     *
+     * @type {Object}
+     */
     var handlers = {
         on4web: function () {},
         oncmd: function () {}
     };
 
-    var currentPageModule;
+    /**
+     * web专属功能信息缓存对象，用于点击行为的事件触发查找
+     *
+     * @inner
+     * @type {Object}
+     */
     var only4webInfos = {};
+
+    /**
+     * 初始化专属功能区域
+     *
+     * @inner
+     */
     function initOnly4Web() {
         var html = ['<h3>专属功能</h3>', '<ul>'];
         for (var i = 0, l = only4web.length; i < l; i++) {
@@ -46,7 +73,19 @@ define(function (require) {
         wrap = null;
     }
 
+    /**
+     * 命令信息缓存对象，用于点击行为的事件触发查找
+     *
+     * @inner
+     * @type {Object}
+     */
     var commandCache = {};
+
+    /**
+     * 初始化命令区域
+     *
+     * @inner
+     */
     function initCommands() {
         var readState = [];
         var readStateLevel = 0;
@@ -106,6 +145,12 @@ define(function (require) {
         wrap = null;
     }
 
+    /**
+     * 设置当前选中功能
+     *
+     * @inner
+     * @param {HTMLLiElement} liEl 当前选中功能对应的li元素
+     */
     function setCurrent(liEl) {
         var lis = document.getElementById('aside-nav').getElementsByTagName('li');
         var len = lis.length;
@@ -116,6 +161,12 @@ define(function (require) {
     }
 
     var beforeHash = '';
+
+    /**
+     * hash发生变化的处理函数
+     *
+     * @inner
+     */
     function hashChange() {
         var index = location.href.indexOf('#');
         var hash = index === -1 ? '' : location.href.slice(index + 1);
@@ -144,14 +195,22 @@ define(function (require) {
     }
 
     return {
+        /**
+         * 初始化导航区域
+         *
+         * @param {Object} data 导航信息对象
+         */
         init: function (data) {
+            // 初始化数据
             data = data || {};
             builtinCommands = data.builtin || [];
             userCommands = data.user || [];
             only4web = data.only4web || [];
 
+            // 初始化视图
             initView();
 
+            // 挂载页面hash变化的处理
             if (window.addEventListener) {
                 window.addEventListener('hashchange', hashChange, false);
             }
@@ -164,6 +223,12 @@ define(function (require) {
             hashChange();
         },
 
+        /**
+         * 设置页面发生跳转的行为
+         *
+         * @param {Function} on4web 跳转到web专属功能的行为
+         * @param {Function} oncmd 跳转到命令运行功能的行为
+         */
         behavior: function (on4web, oncmd) {
             on4web && (handlers.on4web = on4web);
             oncmd && (handlers.oncmd = oncmd);

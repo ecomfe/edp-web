@@ -1,17 +1,40 @@
+/**
+ * @file 页面部件：命令运行区域
+ * @author errorrik[errorrik@gmail.com]
+ */
+
 define(function (require) {
     var panelId = 'cmd-panel';
     var argsId = 'cmd-args';
     var optsId = 'cmd-options';
     var launchId = 'cmd-launch';
 
+    /**
+     * 获取区域面板元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
     function getPanel() {
         return document.getElementById(panelId);
     }
 
+    /**
+     * 获取args表单区域面板元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
     function getArgsEl() {
         return document.getElementById(argsId);
     }
 
+    /**
+     * 获取options表单区域面板元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
     function getOptsEl() {
         return document.getElementById(optsId);
     }
@@ -19,6 +42,11 @@ define(function (require) {
     var currentPath = '';
     var inited;
 
+    /**
+     * 初始化命令运行区域
+     *
+     * @inner
+     */
     function init() {
         var cons = require('./console');
 
@@ -44,10 +72,21 @@ define(function (require) {
         inited = 1;
     }
 
+    /**
+     * 输出命令运行提示
+     *
+     * @inner
+     * @param {string} text 命令运行提示串
+     */
     function cmdLog(text) {
         require('./console').log(text);
     }
 
+    /**
+     * 命令运行结束的行为
+     *
+     * @inner
+     */
     function cmdExit() {
         require('./help').unfold();
 
@@ -59,6 +98,12 @@ define(function (require) {
         require('./console').scrollToBottom();
     }
 
+    /**
+     * 从命令面板的用户输入中获取命令
+     *
+     * @inner
+     * @return {string}
+     */
     function getCmdContent() {
         var cmd = ['edp'];
         currentPath && cmd.push(currentPath);
@@ -89,16 +134,34 @@ define(function (require) {
     }
 
     return {
+        /**
+         * 隐藏命令运行区域
+         */
         hide: function () {
             getPanel().style.display = 'none';
         },
 
+        /**
+         * 显示命令运行区域
+         */
         show: function () {
             getPanel().style.display = '';
         },
 
+        /**
+         * 获取命令
+         *
+         * @return {string}
+         */
         get: getCmdContent,
 
+        /**
+         * 显示命令运行区域
+         *
+         * @param {Object} info 命令信息
+         * @param {string} info.path 命令路径信息
+         * @param {Array=} info.options 命令options信息
+         */
         update: function (info) {
             if (!inited) {
                 init();
