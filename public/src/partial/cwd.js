@@ -37,7 +37,7 @@ define(function (require) {
             lsCwd();
         });
 
-        $('#cwd-edit').click(lsCwd);
+        $('#cwd-panel').click(lsCwd);
         $(document).bind('click', function (e) {
             if(!$(e.target).closest('ol').is('#cwd-dir-list')){
                 $('#cwd-dir-list').hide();
@@ -73,11 +73,11 @@ define(function (require) {
                     );
                 }
 
-                var pos = $('#cwd-edit').position();
+                var pos = $('#cwd-panel').position();
                 $('#cwd-dir-list')
                     .show()
-                    .css('top', pos.top)
-                    .css('left', pos.left + 30)
+                    .css('top', pos.top + 40)
+                    .css('left', pos.left + 120)
                     .html(html.join(''));
             },
             dataType: 'json'

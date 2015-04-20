@@ -80,6 +80,7 @@ header h1 {
     height: 30px;
     margin: 10px 20px 0;
     float: left;
+    cursor: pointer;
 }
 
 #cwd-panel h3 {
@@ -94,26 +95,29 @@ header h1 {
     margin-right: 5px;
 }
 
-#cwd, #cwd-edit {
+#cwd {
     padding: 0 10px;
+    width: 500px;
     float: left;
     background: #fff;
     color: #555;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
 
-#cwd-edit {
-    color: #2455a4;
-    cursor: pointer;
-}
-
-#cwd-edit:hover {
-    color: #3e4d80;
+#cwd:hover {
+    overflow-x: visible;
 }
 
 #cwd-dir-list {
     position: absolute;
     z-index: 10;
     background: #1B4589;
+    width: 520px;
+    -webkit-column-count:2;
+    -webkit-column-gap:0;
+    -moz-column-count:2;
+    -moz-column-gap:0;
 }
 
 #cwd-dir-list li {
@@ -143,6 +147,17 @@ header h1 {
     padding: 5px 0 15px;
     margin: 20px 10px;
     background: #fff;
+}
+
+#git, #svn {
+    float: left;
+    background: #ccc;
+    color: #555;
+    line-height: 30px;
+    text-align: center;
+    width: 40px;
+    margin: 10px 0 0 10px;
+    text-decoration:line-through
 }
 
 #title {

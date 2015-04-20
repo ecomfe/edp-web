@@ -11,7 +11,6 @@
         <script src="dep/marked/marked.js"></script>
         <script src="dep/esl/esl.js"></script>
         <script src="dep/jquery/jquery-2.1.1.js"></script>
-        <script src="dep/markdown/markdown.js"></script>
     </head>
     <body>
         <header class="header">
@@ -20,9 +19,11 @@
             <div id="cwd-panel">
                 <h3><i class="fa fa-thumb-tack"></i>当前目录</h3>
                 <span id="cwd"></span>
-                <span id="cwd-edit"><i class="fa fa-pencil-square"></i></span>
                 <ol id="cwd-dir-list" style="display:none"></ol>
             </div>
+
+            <span id="git">GIT</span>
+            <span id="svn">SVN</span>
         </header>
         <aside id="aside-nav">
             <nav id="nav-4web"></nav>
@@ -41,7 +42,7 @@
             </form>
 
             <div id="console-panel">
-                <header id="toggle-console"><i class="fa fa-windows"></i>Console</header>
+                <header id="toggle-console"><i class="fa fa-terminal"></i>Console</header>
                 <textarea id="console-tty" readonly></textarea>
             </div>
 
