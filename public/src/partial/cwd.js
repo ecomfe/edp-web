@@ -19,6 +19,23 @@ define(function (require) {
             localStorage.setItem('edp-cwd', cwd);
         }
         catch (ex) {}
+
+        $.ajax({
+            method: 'POST',
+            url: '/repo-info',
+            data: {
+                dir: currentCwd
+            },
+            success: function (data) {
+                if (data) {
+                    $('#repo').html(data.type).addClass('in-repo');
+                }
+                else {
+                    $('#repo').html('No Repository').removeClass('in-repo');
+                }
+            },
+            dataType: 'json'
+        });
     }
 
     /**

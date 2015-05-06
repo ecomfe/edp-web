@@ -55,7 +55,6 @@ define(function (require) {
         help.hide();
 
         require('./partial/cmd').hide();
-        require('./partial/console').hide();
 
         var jsModule = info.jsModule;
         if (jsModule) {
@@ -91,7 +90,6 @@ define(function (require) {
 
         var cons = require('./partial/console');
         cons.clear();
-        cons.show();
         cons.fold();
 
         var cmd = require('./partial/cmd');

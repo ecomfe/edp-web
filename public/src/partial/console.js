@@ -8,18 +8,7 @@
 // 于是控制台运行结果的输出就用 textarea 了
 
 define(function (require) {
-    var panelId = 'console-panel';
     var ttyId = 'console-tty';
-
-    /**
-     * 获取控制台区域面板元素
-     *
-     * @inner
-     * @return {HTMLElement}
-     */
-    function getPanel() {
-        return document.getElementById(panelId);
-    }
 
     /**
      * 获取控制台输出元素
@@ -31,25 +20,10 @@ define(function (require) {
         return document.getElementById(ttyId);
     }
 
-    getPanel().style.display = 'none';
     var isFold = 0;
     var texts = [];
 
     var exports = {
-        /**
-         * 显示控制台区域
-         */
-        show: function () {
-            getPanel().style.display = '';
-            this.fold();
-        },
-
-        /**
-         * 隐藏控制台区域
-         */
-        hide: function () {
-            getPanel().style.display = 'none';
-        },
 
         /**
          * 折叠控制台区域
@@ -132,7 +106,7 @@ define(function (require) {
     };
 
     // 标题区域事件挂载，使点击时隐藏或展开
-    document.getElementById('toggle-console').onclick = function () {
+    document.getElementById('console-switch').onclick = function () {
         exports.toggleFold();
     };
 
