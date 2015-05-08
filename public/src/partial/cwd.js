@@ -29,6 +29,10 @@ define(function (require) {
             success: function (data) {
                 if (data) {
                     $('#repo').html(data.type).addClass('in-repo');
+                    $('#repo-url').html(data.url);
+                    $('#repo-branch').html(data.branch);
+                    $('#repo-revision').html(data.revision);
+                    $('#repo-update-time').html(data.updateTime);
                 }
                 else {
                     $('#repo').html('No Repository').removeClass('in-repo');
@@ -54,12 +58,28 @@ define(function (require) {
             lsCwd();
         });
 
+        $('#repo').click(showRepoInfo);
         $('#cwd-panel').click(lsCwd);
         $(document).bind('click', function (e) {
             if(!$(e.target).closest('ol').is('#cwd-dir-list')){
                 $('#cwd-dir-list').hide();
             }
+
+            if(e.target.id != 'repo' && !$(e.target).closest('dl').is('#repo-detail')){
+                $('#repo-detail').hide();
+            }
         });
+    }
+
+    /**
+     * 显示版本控制仓库信息
+     *
+     * @inner
+     */
+    function showRepoInfo() {
+        if ($('#repo').hasClass('in-repo')) {
+            $('#repo-detail').show();
+        }
     }
 
     /**
@@ -94,7 +114,7 @@ define(function (require) {
                 $('#cwd-dir-list')
                     .show()
                     .css('top', pos.top + 40)
-                    .css('left', pos.left + 120)
+                    .css('left', pos.left + 100)
                     .html(html.join(''));
             },
             dataType: 'json'

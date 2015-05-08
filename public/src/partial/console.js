@@ -9,6 +9,7 @@
 
 define(function (require) {
     var ttyId = 'console-tty';
+    var switchId = 'console-switch';
 
     /**
      * 获取控制台输出元素
@@ -18,6 +19,16 @@ define(function (require) {
      */
     function getTTY() {
         return document.getElementById(ttyId);
+    }
+
+    /**
+     * 获取控制台开关元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
+    function getSwitch() {
+        return document.getElementById(switchId);
     }
 
     var isFold = 0;
@@ -30,6 +41,7 @@ define(function (require) {
          */
         fold: function () {
             getTTY().style.display = 'none';
+            getSwitch().className = '';
             isFold = 1;
         },
 
@@ -38,6 +50,7 @@ define(function (require) {
          */
         unfold: function () {
             getTTY().style.display = '';
+            getSwitch().className = 'active';
             isFold = 0;
         },
 
