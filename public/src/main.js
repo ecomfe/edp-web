@@ -90,7 +90,7 @@ define(function (require) {
 
         var cons = require('./partial/console');
         cons.clear();
-        cons.fold();
+        cons.hide();
 
         var cmd = require('./partial/cmd');
         cmd.update(info);

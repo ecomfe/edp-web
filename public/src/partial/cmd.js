@@ -56,7 +56,7 @@ define(function (require) {
 
             var cmd = getCmdContent();
 
-            cons.unfold();
+            cons.show();
             cons.clear();
             cons.log('$ ' + cmd + '\n');
 

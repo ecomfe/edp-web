@@ -5,6 +5,7 @@
 
 define(function (require) {
     var currentCwd;
+    var repoInfo;
 
     /**
      * 设置当前目录
@@ -27,12 +28,13 @@ define(function (require) {
                 dir: currentCwd
             },
             success: function (data) {
+                repoInfo = data;
                 if (data) {
                     $('#repo').html(data.type).addClass('in-repo');
                     $('#repo-url').html(data.url);
                     $('#repo-branch').html(data.branch);
                     $('#repo-revision').html(data.revision);
-                    $('#repo-update-time').html(data.updateTime);
+                    $('#repo-update-time').html(new Date(data.updateTime));
                 }
                 else {
                     $('#repo').html('No Repository').removeClass('in-repo');
@@ -60,6 +62,7 @@ define(function (require) {
 
         $('#repo').click(showRepoInfo);
         $('#cwd-panel').click(lsCwd);
+        $('#repo-update').click(updateRepo);
         $(document).bind('click', function (e) {
             if(!$(e.target).closest('ol').is('#cwd-dir-list')){
                 $('#cwd-dir-list').hide();
@@ -69,6 +72,60 @@ define(function (require) {
                 $('#repo-detail').hide();
             }
         });
+    }
+
+    var cons = require('./console');
+
+    /**
+     * 从远程仓库同步
+     *
+     * @inner
+     */
+    function updateRepo() {
+        $('#repo-detail').hide();
+        if (repoInfo) {
+            var cmd;
+            switch (repoInfo.type) {
+                case 'git':
+                    cmd = 'git pull';
+                    break;
+                case 'svn':
+                    cmd = 'svn update';
+                    break;
+            }
+
+            if (cmd) {
+                cons.show();
+                cons.clear();
+                cons.log('$ ' + cmd + '\n');
+                require('../launch')(
+                    cmd,
+                    currentCwd,
+                    cmdLog,
+                    cmdExit
+                );
+            }
+        }
+    }
+
+
+    /**
+     * 输出命令运行提示
+     *
+     * @inner
+     * @param {string} text 命令运行提示串
+     */
+    function cmdLog(text) {
+        cons.log(text);
+    }
+
+    /**
+     * 命令运行结束的行为
+     *
+     * @inner
+     */
+    function cmdExit() {
+        cons.scrollToBottom();
     }
 
     /**
@@ -120,6 +177,7 @@ define(function (require) {
             dataType: 'json'
         });
     }
+
 
     return {
         /**

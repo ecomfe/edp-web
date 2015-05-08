@@ -179,6 +179,7 @@ header h1 {
     width: 520px;
     overflow: hidden;
     line-height: 30px;
+    padding: 5px 0;
 }
 
 #repo-detail dd {
@@ -193,7 +194,19 @@ header h1 {
     clear: left;
     width: 100px;
     padding-left: 10px;
+}
 
+#repo-detail button {
+    background: #789ABF;
+    border: 0;
+    font-size: 14px;
+    padding: 5px 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+#repo-detail button:hover {
+    background: #5480B1;
 }
 
 #console-switch {

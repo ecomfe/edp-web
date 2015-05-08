@@ -31,38 +31,38 @@ define(function (require) {
         return document.getElementById(switchId);
     }
 
-    var isFold = 0;
+    var isHidden = 0;
     var texts = [];
 
     var exports = {
 
         /**
-         * 折叠控制台区域
+         * 隐藏控制台区域
          */
-        fold: function () {
+        hide: function () {
             getTTY().style.display = 'none';
             getSwitch().className = '';
-            isFold = 1;
+            isHidden = 1;
         },
 
         /**
-         * 展开控制台区域
+         * 显示控制台区域
          */
-        unfold: function () {
+        show: function () {
             getTTY().style.display = '';
             getSwitch().className = 'active';
-            isFold = 0;
+            isHidden = 0;
         },
 
         /**
-         * 展开/折叠 控制台区域
+         * 显示/隐藏 控制台区域
          */
         toggleFold: function () {
-            if (isFold) {
-                this.unfold();
+            if (isHidden) {
+                this.show();
             }
             else {
-                this.fold();
+                this.hide();
             }
         },
 
