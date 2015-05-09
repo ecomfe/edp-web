@@ -7,6 +7,10 @@ define(function (require) {
     var currentCwd;
     var repoInfo;
 
+    var STORAGE_NAME = 'edp-cwd';
+    var repoId = 'repo';
+    var inRepoClass = 'in-repo';
+
     /**
      * 设置当前目录
      *
@@ -17,7 +21,7 @@ define(function (require) {
         currentCwd = cwd;
         $('#cwd').html(cwd);
         try {
-            localStorage.setItem('edp-cwd', cwd);
+            localStorage.setItem(STORAGE_NAME, cwd);
         }
         catch (ex) {}
 
@@ -29,15 +33,18 @@ define(function (require) {
             },
             success: function (data) {
                 repoInfo = data;
+                var repoEl = document.getElementById(repoId);
                 if (data) {
-                    $('#repo').html(data.type).addClass('in-repo');
+                    repoEl.innerHTML = data.type;
+                    repoEl.className = inRepoClass;
                     $('#repo-url').html(data.url);
                     $('#repo-branch').html(data.branch);
                     $('#repo-revision').html(data.revision);
                     $('#repo-update-time').html(moment(data.updateTime).format('YYYY-MM-DD HH:mm:ss'));
                 }
                 else {
-                    $('#repo').html('No Repository').removeClass('in-repo');
+                    repoEl.innerHTML = 'No Repository';
+                    repoEl.className = '';
                 }
             },
             dataType: 'json'
@@ -60,7 +67,7 @@ define(function (require) {
             lsCwd();
         });
 
-        $('#repo').click(showRepoInfo);
+        document.getElementById(repoId).onclick = showRepoInfo;
         $('#cwd-panel').click(lsCwd);
         $('#repo-update').click(updateRepo);
         $(document).bind('click', function (e) {
@@ -134,7 +141,7 @@ define(function (require) {
      * @inner
      */
     function showRepoInfo() {
-        if ($('#repo').hasClass('in-repo')) {
+        if ($('#repo').hasClass(inRepoClass)) {
             $('#repo-detail').show();
         }
     }
@@ -196,7 +203,7 @@ define(function (require) {
          */
         init: function (defaultCwd) {
             try {
-                var cwd = localStorage.getItem('edp-cwd');
+                var cwd = localStorage.getItem(STORAGE_NAME);
                 setCwd(cwd || defaultCwd);
             }
             catch (ex) {
