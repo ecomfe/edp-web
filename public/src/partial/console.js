@@ -10,6 +10,7 @@
 define(function (require) {
     var ttyId = 'console-tty';
     var switchId = 'console-switch';
+    var prventHide = 0;
 
     /**
      * 获取控制台输出元素
@@ -52,6 +53,7 @@ define(function (require) {
             getTTY().style.display = '';
             getSwitch().className = 'active';
             isHidden = 0;
+            prventHide = 1;
         },
 
         /**
@@ -115,6 +117,17 @@ define(function (require) {
         scrollToBottom: function () {
             var tty = getTTY();
             tty.scrollTop = tty.scrollHeight;
+        },
+
+        /**
+         * 命令完成。将输出完成标识，并滚动到底部
+         */
+        complete: function () {
+            this.log('\n');
+            this.log('\n');
+            this.log('------ Completed! ------');
+            this.log('\n');
+            this.scrollToBottom();
         }
     };
 
@@ -124,9 +137,11 @@ define(function (require) {
     };
 
     $(document).bind('click', function (e) {
-        if(e.target.id != switchId && e.target.id != ttyId){
+        if(e.target.id != switchId && e.target.id != ttyId && !prventHide){
             exports.hide();
         }
+
+        prventHide = 0;
     });
 
     return exports;

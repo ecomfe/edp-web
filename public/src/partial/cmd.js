@@ -95,7 +95,7 @@ define(function (require) {
         launchBtn.disabled = false;
         launchBtn = null;
 
-        require('./console').scrollToBottom();
+        require('./console').complete();
     }
 
     /**

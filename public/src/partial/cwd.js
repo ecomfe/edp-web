@@ -132,7 +132,7 @@ define(function (require) {
      * @inner
      */
     function cmdExit() {
-        cons.scrollToBottom();
+        cons.complete();
     }
 
     /**
