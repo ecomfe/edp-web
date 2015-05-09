@@ -57,7 +57,7 @@ define(function (require) {
         /**
          * 显示/隐藏 控制台区域
          */
-        toggleFold: function () {
+        toggle: function () {
             if (isHidden) {
                 this.show();
             }
@@ -119,9 +119,15 @@ define(function (require) {
     };
 
     // 标题区域事件挂载，使点击时隐藏或展开
-    document.getElementById('console-switch').onclick = function () {
-        exports.toggleFold();
+    document.getElementById(switchId).onclick = function () {
+        exports.toggle();
     };
+
+    $(document).bind('click', function (e) {
+        if(e.target.id != switchId && e.target.id != ttyId){
+            exports.hide();
+        }
+    });
 
     return exports;
 });
