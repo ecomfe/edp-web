@@ -34,7 +34,7 @@ define(function (require) {
                     $('#repo-url').html(data.url);
                     $('#repo-branch').html(data.branch);
                     $('#repo-revision').html(data.revision);
-                    $('#repo-update-time').html(new Date(data.updateTime));
+                    $('#repo-update-time').html(moment(data.updateTime).format('YYYY-MM-DD HH:mm:ss'));
                 }
                 else {
                     $('#repo').html('No Repository').removeClass('in-repo');
