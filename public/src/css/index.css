@@ -171,7 +171,7 @@ header h1 {
 
 #repo-detail {
     position: absolute;
-    top: 10px;
+    top: 40px;
     left: 300px;
     z-index: 10;
     background: #1B4589;
