@@ -42,6 +42,22 @@ define(function () {
             }
 
             return segs.join(separator);
+        },
+
+        /**
+         * 获取文件名
+         *
+         * @param {string} fullPath 完整路径
+         * @return {string}
+         */
+        basename: function (fullPath) {
+            var terms = fullPath.split(separator);
+            var len = terms.length;
+            if (len > 0) {
+                return terms[len - 1];
+            }
+
+            return '';
         }
     };
 });
