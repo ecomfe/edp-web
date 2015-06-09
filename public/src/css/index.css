@@ -378,6 +378,9 @@ input[type=text] {
     margin-right: 8px;
 }
 
+#board {
+    margin: 10px;
+}
 
 
 
