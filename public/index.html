@@ -6,12 +6,15 @@
         <link rel="stylesheet" href="src/css/index.css">
         <link rel="stylesheet" href="src/css/common.css">
         <link rel="stylesheet" href="src/css/help.css">
+        <link rel="stylesheet" href="dep/codemirror/lib/codemirror.css">
         <script src="/cwd.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="dep/marked/marked.js"></script>
         <script src="dep/moment/moment.js"></script>
+        <script src="dep/codemirror/lib/codemirror.js"></script>
         <script src="dep/esl/esl.js"></script>
         <script src="dep/jquery/jquery-2.1.1.js"></script>
+
     </head>
     <body>
         <header class="header">
@@ -61,12 +64,14 @@
                 <main id="help-main"></main>
             </article>
         </main>
+        <div id="preview-panel"><img id="preview-image"></div>
         <script src="/nav.js"></script>
         <script src="/require.config.js"></script>
         <script>
         require(['main'], function (main) {
             main.start();
         });
+
         </script>
     </body>
 </html>

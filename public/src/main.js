@@ -116,6 +116,9 @@ define(function (require) {
             var nav = require('./partial/nav');
             nav.behavior(loadWebFunc, loadCmdFunc);
             nav.init(NAV);
+
+            // TODO: put it here tempoary
+            require('./partial/preview');
         }
     };
 });
