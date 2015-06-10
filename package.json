@@ -1,23 +1,28 @@
 {
-    "name": "edp-web",
-    "description": "Package for edp web",
-    "version": "0.8.5",
-    "contributors": [
-        { "name": "errorrik", "email": "errorrik@gmail.com" }
-    ],
-    "dependencies": {
-        "edp-core": "~1.0.28",
-        "express": "4.x",
-        "body-parser": "1.10.x",
-        "socket.io": "1.2.x",
-        "js-yaml": "3.1.x",
-        "async": "0.9.x"
-    },
-    "main": "index.js",
-    "web": {
-        "disabledCommands": [
-            "web"
-        ]
-    },
-    "repository": "git://github.com/ecomfe/edp-web"
+  "name": "edp-web",
+  "description": "Package for edp web",
+  "version": "0.8.5",
+  "contributors": [
+    {
+      "name": "errorrik",
+      "email": "errorrik@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "async": "0.9.x",
+    "body-parser": "1.10.x",
+    "charset-detector": "0.0.2",
+    "edp-core": "~1.0.28",
+    "express": "4.x",
+    "js-yaml": "3.1.x",
+    "mime": "^1.3.4",
+    "socket.io": "1.2.x"
+  },
+  "main": "index.js",
+  "web": {
+    "disabledCommands": [
+      "web"
+    ]
+  },
+  "repository": "git://github.com/ecomfe/edp-web"
 }
