@@ -387,8 +387,40 @@ input[type=text] {
     margin: 10px;
 }
 
-.CodeMirror {
+#preview-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20000;
+    background: #333;
+    background: rgba(50, 50, 50, .9);
+    width: 100%;
     height: 100%;
+}
+
+#preview-image {
+    width: 100%;
+    height: 100%;
+}
+
+#preview-image-show {
+    display: block;
+    margin: 20px auto 0;
+    border: 5px solid #fff;
+    cursor: pointer;
+}
+
+#preview-image-close {
+    display: block;
+    text-align: center;
+    margin: 10px auto 0;
+    font-size: 40px;
+    color: #E57A7A;
+    cursor: pointer;
+}
+
+#preview-image-close:hover {
+    color: #D8D37E;
 }
 
 

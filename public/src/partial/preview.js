@@ -10,6 +10,12 @@ define(function (require) {
         require('./previewer/image')
     ];
 
+    function getPanel() {
+        return document.getElementById('preview-panel');
+    }
+
+    var currentPreviewer;
+
     /**
      * 预览文件
      *
@@ -26,6 +32,7 @@ define(function (require) {
                 for (var i = 0, l = previewers.length; i < l; i++) {
                     var previewer = previewers[i];
                     if (previewer.isSupport(data)) {
+                        currentPreviewer = previewer;
                         previewer.preview(data);
                         return;
                     }
@@ -36,6 +43,20 @@ define(function (require) {
             dataType: 'json'
         });
     }
+
+    preview.show = function () {
+        getPanel().style.display = '';
+    };
+
+    preview.hide = function () {
+        currentPreviewer && currentPreviewer.hide();
+        getPanel().style.display = 'none';
+        currentPreviewer = null;
+    };
+
+    previewers.forEach(function (previewer) {
+        previewer.init && previewer.init(preview);
+    });
 
     return preview;
 });
