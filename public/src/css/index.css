@@ -423,5 +423,36 @@ input[type=text] {
     color: #D8D37E;
 }
 
+#preview-menu {
+    height: 30px;
+    padding: 10px 0;
+    text-align: center;
+    background: #111;
+}
 
+#preview-menu li {
+    display: inline-block;
+    padding: 0 8px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 2;
+    color: #fff;
+}
+
+#preview-menu li i {
+    margin-right: 3px;
+}
+
+#preview-text-saveclose {
+    background: #38811D;
+}
+
+#preview-text-save {
+    background: #768A6F;
+}
+
+#preview-text-close {
+    background: #991E1E;
+}
 

@@ -3,15 +3,19 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="src/css/font-awesome.css">
+        <link rel="stylesheet" href="dep/codemirror/lib/codemirror.css">
+        <link rel="stylesheet" href="dep/codemirror/theme/monokai.css">
         <link rel="stylesheet" href="src/css/index.css">
         <link rel="stylesheet" href="src/css/common.css">
         <link rel="stylesheet" href="src/css/help.css">
-        <link rel="stylesheet" href="dep/codemirror/lib/codemirror.css">
         <script src="/cwd.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="dep/marked/marked.js"></script>
         <script src="dep/moment/moment.js"></script>
         <script src="dep/codemirror/lib/codemirror.js"></script>
+        <script src="dep/codemirror/mode/javascript/javascript.js"></script>
+        <script src="dep/codemirror/mode/css/css.js"></script>
+        <script src="dep/codemirror/mode/xml/xml.js"></script>
         <script src="dep/esl/esl.js"></script>
         <script src="dep/jquery/jquery-2.1.1.js"></script>
 
@@ -42,11 +46,13 @@
 
             <span id="console-switch"><i class="fa fa-terminal"></i>Console</span>
         </header>
+
         <textarea id="console-tty" style="display:none" readonly></textarea>
         <aside id="aside-nav">
             <nav id="nav-4web"></nav>
             <nav id="nav-cmd"></nav>
         </aside>
+
         <main id="main" style="display:none">
             <h3 id="title" style="display:none"></h3>
             <div id="board" style="display:none"></div>
@@ -64,10 +70,19 @@
                 <main id="help-main"></main>
             </article>
         </main>
+
         <div id="preview-panel" style="display: none">
             <div id="preview-image" style="display: none">
                 <i class="fa fa-close" id="preview-image-close"></i>
                 <img id="preview-image-show">
+            </div>
+            <div id="preview-text" style="display: none">
+                <ul id="preview-menu">
+                    <li id="preview-text-saveclose"><i class="fa fa-save"></i>保存并关闭</li>
+                    <li id="preview-text-save"><i class="fa fa-save"></i>保存</li>
+                    <li id="preview-text-close"><i class="fa fa-close"></i>关闭</li>
+                </ul>
+                <div id="preview-text-editor"></div>
             </div>
         </div>
 
@@ -77,7 +92,6 @@
         require(['main'], function (main) {
             main.start();
         });
-
         </script>
     </body>
 </html>

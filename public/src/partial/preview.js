@@ -10,6 +10,12 @@ define(function (require) {
         require('./previewer/image')
     ];
 
+    /**
+     * 获取预览区域容器元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
     function getPanel() {
         return document.getElementById('preview-panel');
     }
@@ -33,6 +39,7 @@ define(function (require) {
                     var previewer = previewers[i];
                     if (previewer.isSupport(data)) {
                         currentPreviewer = previewer;
+                        preview.show();
                         previewer.preview(data);
                         return;
                     }
@@ -44,12 +51,18 @@ define(function (require) {
         });
     }
 
+    /**
+     * 显示预览区域
+     */
     preview.show = function () {
         getPanel().style.display = '';
     };
 
+    /**
+     * 隐藏预览区域
+     */
     preview.hide = function () {
-        currentPreviewer && currentPreviewer.hide();
+        currentPreviewer && currentPreviewer.hide && currentPreviewer.hide();
         getPanel().style.display = 'none';
         currentPreviewer = null;
     };

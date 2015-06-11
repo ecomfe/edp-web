@@ -53,7 +53,6 @@ define(function (require) {
          * @param {Object} info 文件信息
          */
         preview: function (info) {
-            controller.show();
             getPanelEl().style.display = '';
             getImgEl().src = 'data:' + info.type + ';base64,' + info.data;
         },
