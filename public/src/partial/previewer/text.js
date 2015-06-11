@@ -22,6 +22,26 @@ define(function (require) {
     }
 
     /**
+     * 获取保存按钮元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
+    function getSaveEl() {
+        return document.getElementById('preview-text-save');
+    }
+
+    /**
+     * 获取保存并关闭按钮元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
+    function getSaveCloseEl() {
+        return document.getElementById('preview-text-saveclose');
+    }
+
+    /**
      * 获取编辑器容器元素
      *
      * @inner
