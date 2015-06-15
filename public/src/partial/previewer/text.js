@@ -84,6 +84,43 @@ define(function (require) {
         );
     }
 
+    var message = require('../message');
+    var currentFile;
+
+    /**
+     * 保存修改结果
+     *
+     * @inner
+     * @param {Function} onsuccess 保存成功的回调函数
+     */
+    function save(onsuccess, onfail) {
+        if (!currentFile) {
+            return;
+        }
+
+        message.loading('Saving');
+        var value = editor.doc.getValue();
+
+        $.ajax({
+            method: 'POST',
+            url: '/file-save',
+            data: {
+                file: currentFile,
+                content: value
+            },
+            success: function (data) {
+                if (data.success) {
+                    (typeof onsuccess === 'function') && onsuccess();
+                    message.success('保存成功', {remain: 3});
+                }
+                else {
+                    message.error('保存失败: ' + data.message, {remain: 3});
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
     return {
         /**
          * 是否支持对当前文件的预览
@@ -101,6 +138,7 @@ define(function (require) {
          * @param {Object} info 文件信息
          */
         preview: function (info) {
+            currentFile = info.file;
             getPanelEl().style.display = '';
             initEditor();
             editor.setOption({
@@ -113,6 +151,7 @@ define(function (require) {
          * 关闭预览显示
          */
         hide: function () {
+            currentFile = null;
             getPanelEl().style.display = 'none';
         },
 
@@ -124,7 +163,12 @@ define(function (require) {
         init: function (ctrl) {
             controller = ctrl;
             getCloseEl().onclick = controller.hide;
-
+            getSaveEl().onclick = function () {
+                save()
+            };
+            getSaveCloseEl().onclick = function () {
+                save(controller.hide);
+            };
         }
     };
 });
