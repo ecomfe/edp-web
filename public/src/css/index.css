@@ -456,3 +456,63 @@ input[type=text] {
     background: #991E1E;
 }
 
+#mask {
+    transition: opacity .3s ease-in-out;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+    background: #333;
+    width: 100%;
+    height: 100%;
+    opacity: .9;
+}
+
+#mask.mask-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+body {
+    perspective: 100px;
+}
+
+#message {
+    transition: transform .6s ease-in-out, opacity .6s;
+    position: fixed;
+    top: 100px;
+    z-index: 100001;
+    padding: 5px 10px;
+}
+
+.message {
+    border: 3px solid #555;
+    background: #777;
+    color: #fff;
+    transform: translatey(0) rotatex(0);
+}
+
+.message-hidden {
+    transform: translatey(-200px) rotatex(60deg);
+    opacity: .3;
+}
+
+.message-warn {
+    background: #f0ad4e;
+    border: 3px solid #C5934A;
+}
+
+.message-error {
+    background: #d9534f;
+    border: 3px solid #BB4844;
+}
+
+.message-success {
+    background: #5cb85c;
+    border: 3px solid #389838;
+}
+
+.message .fa {
+    margin-right: 5px;
+}
+
