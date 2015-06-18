@@ -19,6 +19,10 @@ define(function (require) {
      * @param {boolean} silent 是否静默，不触发事件
      */
     function setCwd(cwd, silent) {
+        if (cwd === currentCwd) {
+            return;
+        }
+
         currentCwd = cwd;
         $('#cwd').html(cwd);
         try {
@@ -232,6 +236,14 @@ define(function (require) {
         get: function () {
             return currentCwd;
         },
+
+        /**
+         * 设置当前目录
+         *
+         * @param {string} cwd 当前目录
+         * @param {boolean} silent 是否静默，不触发事件
+         */
+        set: setCwd,
 
         /**
          * 初始化当前目录区域
