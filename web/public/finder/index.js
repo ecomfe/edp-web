@@ -66,6 +66,8 @@ define(function (require) {
                             case 'text/javascript':
                             case 'text/html':
                             case 'text/css':
+                            case 'text/json':
+                            case 'text/x-sh':
                                 file.icon = 'file-code-o';
                                 break;
                         }
@@ -144,7 +146,6 @@ define(function (require) {
             return;
         }
 
-        console.log(li)
         if (currentFileEl) {
             currentFileEl.className = '';
         }
