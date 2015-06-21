@@ -8,7 +8,7 @@ define(function (require) {
         + '<!-- for: ${files} as ${file} -->'
         + '<!-- var: type = ${file.type} === "directory" ? "folder" : "file-o" -->'
         + '<li data-name="${file.name}" data-type="${file.type}">'
-        +   '<i class="fa fa-${type}"></i><b>${file.name}</b>'
+        +   '<i class="fa fa-${file.icon}"></i><b>${file.name}</b>'
         + '</li>'
         + '<!-- /for -->'
         + '</ul>';
@@ -53,7 +53,30 @@ define(function (require) {
                     return typeDiff;
                 });
 
-                data.unshift({name: '..', type: 'directory'});
+                data.forEach(function (file) {
+                    file.icon = 'file-o';
+                    if (file.type === 'directory') {
+                        file.icon = 'folder';
+                    }
+                    else if (/^image/i.test(file.mime)) {
+                        file.icon = 'file-image-o';
+                    }
+                    else {
+                        switch (file.mime) {
+                            case 'text/javascript':
+                            case 'text/html':
+                            case 'text/css':
+                                file.icon = 'file-code-o';
+                                break;
+                        }
+                    }
+                });
+
+                data.unshift({
+                    name: '..',
+                    type: 'directory',
+                    icon: 'arrow-circle-up'
+                });
 
                 getWrap().innerHTML = renderer({files: data});
             },
