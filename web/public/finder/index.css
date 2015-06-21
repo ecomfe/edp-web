@@ -1,0 +1,32 @@
+#finder-wrap ul {
+    list-style: none;
+    overflow: hidden;
+    user-select: none;
+}
+
+#finder-wrap li {
+    text-align: center;
+    margin: 0 0 4px;
+    padding: 15px 2px 5px;
+    float: left;
+    width: 150px;
+    height: 70px;
+}
+
+#finder-wrap ul .current-file {
+    background: #ccc;
+    background: rgba(0, 0, 0, .1);
+    box-shadow: 0 0 3px #999 inset;
+}
+
+#finder-wrap ul b {
+    display: block;
+    margin-top: 5px;
+    line-height: 1;
+    font-weight: 400;
+    word-break: break-all;
+}
+
+#finder-wrap ul .fa {
+    font-size: 30px;
+}

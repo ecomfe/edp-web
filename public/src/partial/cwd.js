@@ -165,16 +165,17 @@ define(function (require) {
             method: 'POST',
             url: '/ls',
             data: {
-                dir: currentCwd
+                dir: currentCwd,
+                type: 'd'
             },
             success: function (data) {
                 var html = [];
                 if (currentCwd.split('/').length > 2) {
-                    data.unshift('..');
+                    data.unshift({name: '..', type: 'directory'});
                 }
 
                 for (var i = 0; i < data.length; i++) {
-                    var dir = data[i];
+                    var dir = data[i].name;
                     html.push('<li data-dir="' + dir + '"><i class="fa '
                         + (dir === '..' ? 'fa-arrow-circle-up' : 'fa-folder')
                         + '"></i>'
