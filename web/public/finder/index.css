@@ -1,3 +1,7 @@
+#finder-wrap {
+    margin-top: 5px;
+}
+
 #finder-wrap ul {
     list-style: none;
     overflow: hidden;

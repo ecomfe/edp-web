@@ -26,6 +26,16 @@ define(function (require) {
     }
 
     /**
+     * 获取查看按钮元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
+    function getOpenEl() {
+        return document.getElementById('finder-op-open');
+    }
+
+    /**
      * 获取目录下的文件并显示
      *
      * @inner
@@ -111,16 +121,7 @@ define(function (require) {
             return;
         }
 
-        var name = li.getAttribute('data-name');
-        var type = li.getAttribute('data-type');
-        var fullPath = path.resolve(cwdModule.get(), name);
-
-        if (type === 'directory') {
-            cwdModule.set(fullPath)
-        }
-        else {
-            preview(fullPath);
-        }
+        openCurrent();
     }
 
     /**
@@ -151,6 +152,29 @@ define(function (require) {
         }
         li.className = 'current-file';
         currentFileEl = li;
+        getOpenEl().disabled = false;
+    }
+
+    /**
+     * 查看当前选中的文件
+     *
+     * @inner
+     */
+    function openCurrent() {
+        if (currentFileEl) {
+            var name = currentFileEl.getAttribute('data-name');
+            var type = currentFileEl.getAttribute('data-type');
+            var fullPath = path.resolve(cwdModule.get(), name);
+
+            if (type === 'directory') {
+                currentFileEl = null;
+                getOpenEl().disabled = true;
+                cwdModule.set(fullPath);
+            }
+            else {
+                preview(fullPath);
+            }
+        }
     }
 
     return {
@@ -158,6 +182,7 @@ define(function (require) {
             var wrap = getWrap();
             wrap.ondblclick = dblClicker;
             wrap.onclick = clicker;
+            getOpenEl().onclick = openCurrent;
 
             lsDir(cwdModule.get());
             cwdModule.on('change', cwdChanger);
@@ -166,6 +191,11 @@ define(function (require) {
         unload: function () {
             var wrap = getWrap();
             wrap.ondblclick = wrap.onclick = null;
+
+            var openEl = getOpenEl();
+            openEl.onclick = null;
+            openEl.disabled = true;
+
             currentFileEl = null;
             cwdModule.un('change', cwdChanger);
         }
