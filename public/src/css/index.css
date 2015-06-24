@@ -18,6 +18,16 @@ h1, h2, h3, ol, ul, li, dl, dt, dd, p, form, pre {
     font-weight: normal;
 }
 
+a:link,
+a:visited,
+a:active {
+    color: #2f89ea;
+}
+
+a:hover {
+    color: #2455a4;
+}
+
 .header {
     background: #2f89ea;
     height: 50px;
