@@ -84,9 +84,10 @@ define(function (require) {
                 $('#cwd-dir-list').hide();
             }
 
-            if(e.target.id != 'repo' && !$(e.target).closest('dl').is('#repo-detail')){
+            if(!repoPreventHide && !$(e.target).closest('dl').is('#repo-detail')){
                 $('#repo-detail').hide();
             }
+            repoPreventHide = 0;
         });
     }
 
@@ -144,14 +145,22 @@ define(function (require) {
         cons.complete();
     }
 
+    var repoPreventHide = 0;
+
     /**
      * 显示版本控制仓库信息
      *
      * @inner
      */
     function showRepoInfo() {
+        repoPreventHide = 1;
         if ($('#repo').hasClass(inRepoClass)) {
             $('#repo-detail').show();
+        }
+        else {
+            require('./message').warn('当前目录不在任何仓库下', {
+                remain: 2
+            });
         }
     }
 
@@ -296,6 +305,11 @@ define(function (require) {
                     }
                 }
             }
-        }
+        },
+
+        /**
+         * 显示版本控制仓库信息
+         */
+        showRepoInfo: showRepoInfo
     };
 });
