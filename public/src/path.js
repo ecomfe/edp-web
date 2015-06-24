@@ -58,6 +58,22 @@ define(function () {
             }
 
             return '';
+        },
+
+        /**
+         * 获取文件所在目录
+         *
+         * @param {string} fullPath 完整路径
+         * @return {string}
+         */
+        dirname: function (fullPath) {
+            var terms = fullPath.split(separator);
+            var len = terms.length;
+            if (len > 0) {
+                terms.length = len - 1;
+            }
+
+            return terms.join(separator);
         }
     };
 });
