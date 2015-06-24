@@ -31,7 +31,7 @@ define(function (require) {
         catch (ex) {}
 
         if (!silent) {
-            fire('change', currentCwd);
+            exports.fireEvent('change', currentCwd);
         }
 
         $.ajax({
@@ -204,40 +204,7 @@ define(function (require) {
         });
     }
 
-    var listenerContainer = {};
-
-    /**
-     * 获取事件的监听器列表
-     *
-     * @inner
-     * @param {string} name 事件名
-     * @return {Array}
-     */
-    function getListeners(name) {
-        var listeners = listenerContainer[name];
-        if (!listeners) {
-            listeners = listenerContainer[name] = [];
-        }
-
-        return listeners;
-    }
-
-    /**
-     * 触发事件
-     *
-     * @inner
-     * @param {string} name 事件名
-     * @param {*} arg 事件参数对象
-     */
-    function fire(name, arg) {
-        var listeners = getListeners(name);
-        for (var i = 0, l = listeners.length; i < l; i++) {
-            var listener = listeners[i];
-            listener(arg);
-        }
-    }
-
-    return {
+    var exports = {
         /**
          * 获取当前目录
          *
@@ -273,43 +240,10 @@ define(function (require) {
         },
 
         /**
-         * 添加事件监听器
-         *
-         * @param {string} name 事件名
-         * @param {Function} listener 监听器
-         */
-        on: function (name, listener) {
-            if (typeof listener !== 'function') {
-                return;
-            }
-
-            getListeners(name).push(listener);
-        },
-
-        /**
-         * 移除事件监听器
-         *
-         * @param {string} name 事件名
-         * @param {Function=} listener 监听器
-         */
-        un: function (name, listener) {
-            var listeners = getListeners(name);
-            if (!listener) {
-                listeners.length = 0;
-            }
-            else {
-                var len = listeners.length;
-                while (len--) {
-                    if (listener === listeners[len]) {
-                        listeners.splice(len, 1);
-                    }
-                }
-            }
-        },
-
-        /**
          * 显示版本控制仓库信息
          */
         showRepoInfo: showRepoInfo
     };
+
+    return require('util/observable')(exports);
 });

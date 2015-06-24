@@ -1,3 +1,8 @@
+/**
+ * @file 文本文件预览
+ * @author errorrik[errorrik@gmail.com]
+ */
+
 define(function (require) {
     var controller;
 
@@ -110,18 +115,21 @@ define(function (require) {
             },
             success: function (data) {
                 if (data.success) {
+                    message.success('保存成功', {remain: 2});
+                    exports.fireEvent('save', {
+                        file: currentFile
+                    });
                     (typeof onsuccess === 'function') && onsuccess();
-                    message.success('保存成功', {remain: 3});
                 }
                 else {
-                    message.error('保存失败: ' + data.message, {remain: 3});
+                    message.error('保存失败: ' + data.message, {remain: 2});
                 }
             },
             dataType: 'json'
         });
     }
 
-    return {
+    var exports = {
         /**
          * 是否支持对当前文件的预览
          *
@@ -164,11 +172,13 @@ define(function (require) {
             controller = ctrl;
             getCloseEl().onclick = controller.hide;
             getSaveEl().onclick = function () {
-                save()
+                save();
             };
             getSaveCloseEl().onclick = function () {
                 save(controller.hide);
             };
         }
     };
+
+    return require('util/observable')(exports);
 });
