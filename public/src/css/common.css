@@ -2,22 +2,35 @@
     margin-right: 6px;
 }
 
-.btn-primary {
-    background: #2f89ea;
+.btn {
     border: 0;
     padding: 5px 20px;
     font-size: 18px;
-    color: #fff;
     cursor: pointer;
+}
+
+.btn-primary {
+    background: #2f89ea;
+    color: #fff;
 }
 
 .btn-primary:hover {
     background: #2455a4;
 }
 
-.btn-primary:disabled {
+.btn-danger {
+    background: #EA2F2F;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #A42424;
+}
+
+.btn:disabled {
     background: #a9a9a9;
     color: #666;
+    cursor: default;
 }
 
 .label {

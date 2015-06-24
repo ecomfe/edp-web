@@ -2,6 +2,7 @@ define(function (require) {
     var cwdModule = require('partial/cwd');
     var path = require('path');
     var preview = require('partial/preview');
+    var message = require('partial/message');
 
     var TPL = ''
         + '<ul>'
@@ -34,6 +35,18 @@ define(function (require) {
     function getOpenEl() {
         return document.getElementById('finder-op-open');
     }
+
+    /**
+     * 获取删除按钮元素
+     *
+     * @inner
+     * @return {HTMLElement}
+     */
+    function getRemoveEl() {
+        return document.getElementById('finder-op-rm');
+    }
+
+
 
     /**
      * 获取目录下的文件并显示
@@ -152,7 +165,7 @@ define(function (require) {
         }
         li.className = 'current-file';
         currentFileEl = li;
-        getOpenEl().disabled = false;
+        updateOpState();
     }
 
     /**
@@ -168,12 +181,71 @@ define(function (require) {
 
             if (type === 'directory') {
                 currentFileEl = null;
-                getOpenEl().disabled = true;
+                updateOpState();
                 cwdModule.set(fullPath);
             }
             else {
                 preview(fullPath);
             }
+        }
+    }
+
+    /**
+     * 删除当前选中的文件
+     *
+     * @inner
+     */
+    function removeCurrent() {
+        if (currentFileEl) {
+            var name = currentFileEl.getAttribute('data-name');
+            var type = currentFileEl.getAttribute('data-type');
+            var fullPath = path.resolve(cwdModule.get(), name);
+
+            if (type === 'file') {
+                message.loading('File deleteing');
+
+                $.ajax({
+                    method: 'POST',
+                    url: '/file-rm',
+                    data: {
+                        file: fullPath
+                    },
+                    success: function (data) {
+                        if (!currentFileEl) {
+                            return;
+                        }
+
+                        if (data.success) {
+                            currentFileEl.parentNode.removeChild(currentFileEl);
+                            currentFileEl = null;
+                            updateOpState();
+
+                            message.success('删除成功', {remain: 2});
+                        }
+                        else {
+                            message.error(info.message, {remain: 2});
+                        }
+                    },
+                    dataType: 'json'
+                });
+            }
+        }
+    }
+
+    /**
+     * 更新操作按钮的状态
+     *
+     * @inner
+     */
+    function updateOpState() {
+        if (!currentFileEl) {
+            getOpenEl().disabled = true;
+            getRemoveEl().disabled = true;
+        }
+        else {
+            getOpenEl().disabled = false;
+            var type = currentFileEl.getAttribute('data-type');
+            getRemoveEl().disabled = (type === 'directory');
         }
     }
 
@@ -183,6 +255,7 @@ define(function (require) {
             wrap.ondblclick = dblClicker;
             wrap.onclick = clicker;
             getOpenEl().onclick = openCurrent;
+            getRemoveEl().onclick = removeCurrent;
 
             lsDir(cwdModule.get());
             cwdModule.on('change', cwdChanger);
@@ -192,11 +265,11 @@ define(function (require) {
             var wrap = getWrap();
             wrap.ondblclick = wrap.onclick = null;
 
-            var openEl = getOpenEl();
-            openEl.onclick = null;
-            openEl.disabled = true;
-
             currentFileEl = null;
+            getOpenEl().onclick = null;
+            getRemoveEl().onclick = null;
+            updateOpState();
+
             cwdModule.un('change', cwdChanger);
         }
     }
